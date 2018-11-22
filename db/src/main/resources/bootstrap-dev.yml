@@ -1,0 +1,53 @@
+server:
+  port: 8088
+banner:
+  location: classpath:banner.starter
+logging:
+  config: classpath:log/log4j2-spring-dev.xml
+spring:
+  application:
+    name: db
+  datasource:
+    url: jdbc:mysql://47.107.87.179:3306/ysy_app?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: CQysy888.J
+    hikari:
+      maximum-pool-size: 30
+      read-only: false
+      max-lifetime: 1800000
+      connection-timeout: 60000
+      idle-timeout: 60000
+      validation-timeout: 3000
+      connection-init-sql: SELECT 1
+      connection-test-query: SELECT 1
+      validationQuery: SELECT 1
+      #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      testWhileIdle: true
+      #指明是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个
+      testOnBorrow: true
+      #指明是否在归还到池中前进行检验
+      testOnReturn: true
+mybatis:
+  config-location: classpath:org/batis/mapper/mybatis-resources.xml
+  mapper-locations: classpath:org/batis/mapper/**/*Mapper.xml
+  type-aliases-package: com.ysy.app.db.po
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:7080/eureka/
+feign:
+  hystrix:
+    enable: false
+hystrix:
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 30000
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000

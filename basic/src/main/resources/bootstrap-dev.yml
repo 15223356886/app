@@ -1,0 +1,28 @@
+server:
+  port: 8099
+banner:
+  location: classpath:banner.starter
+logging:
+  config: classpath:log/log4j2-spring-dev.xml
+spring:
+  application:
+    name: basic
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:7080/eureka/
+feign:
+  hystrix:
+    enable: false
+hystrix:
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 30000
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000

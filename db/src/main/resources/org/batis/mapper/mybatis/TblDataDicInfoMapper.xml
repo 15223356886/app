@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysy.app.db.dao.TblDataDicInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ysy.app.db.po.TblDataDicInfo">
+    <id column="DATA_DIC_ID" jdbcType="VARCHAR" property="dataDicId" />
+    <result column="DATA_KEY" jdbcType="VARCHAR" property="dataKey" />
+    <result column="DATA_VALUE" jdbcType="VARCHAR" property="dataValue" />
+    <result column="DATA_DIC_TYPE" jdbcType="VARCHAR" property="dataDicType" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DATA_DIC_ID, DATA_KEY, DATA_VALUE, DATA_DIC_TYPE, STATUS, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TBL_DATA_DIC_INFO
+    where DATA_DIC_ID = #{dataDicId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBL_DATA_DIC_INFO
+    where DATA_DIC_ID = #{dataDicId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ysy.app.db.po.TblDataDicInfo">
+    insert into TBL_DATA_DIC_INFO (DATA_DIC_ID, DATA_KEY, DATA_VALUE, 
+      DATA_DIC_TYPE, STATUS, CREATE_DATE, 
+      UPDATE_DATE)
+    values (#{dataDicId,jdbcType=VARCHAR}, #{dataKey,jdbcType=VARCHAR}, #{dataValue,jdbcType=VARCHAR}, 
+      #{dataDicType,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ysy.app.db.po.TblDataDicInfo">
+    insert into TBL_DATA_DIC_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataDicId != null">
+        DATA_DIC_ID,
+      </if>
+      <if test="dataKey != null">
+        DATA_KEY,
+      </if>
+      <if test="dataValue != null">
+        DATA_VALUE,
+      </if>
+      <if test="dataDicType != null">
+        DATA_DIC_TYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataDicId != null">
+        #{dataDicId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataKey != null">
+        #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null">
+        #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDicType != null">
+        #{dataDicType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ysy.app.db.po.TblDataDicInfo">
+    update TBL_DATA_DIC_INFO
+    <set>
+      <if test="dataKey != null">
+        DATA_KEY = #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null">
+        DATA_VALUE = #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDicType != null">
+        DATA_DIC_TYPE = #{dataDicType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DATA_DIC_ID = #{dataDicId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ysy.app.db.po.TblDataDicInfo">
+    update TBL_DATA_DIC_INFO
+    set DATA_KEY = #{dataKey,jdbcType=VARCHAR},
+      DATA_VALUE = #{dataValue,jdbcType=VARCHAR},
+      DATA_DIC_TYPE = #{dataDicType,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where DATA_DIC_ID = #{dataDicId,jdbcType=VARCHAR}
+  </update>
+</mapper>

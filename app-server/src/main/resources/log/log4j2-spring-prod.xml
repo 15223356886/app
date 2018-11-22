@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration status="WARN">
+    <properties>
+        <property name="log.fmt.pattern" value="%d{HH:mm:ss,SSS} [%thread] %5p %c.%M():%L - %msg%n"/>
+        <property name="log.base.package" value="com.ysy.app.appserver"/>
+        <property name="log.base" value="/home/ysy/logs/app/appserver/appserver"/>
+        <property name="log.level.debug" value="DEBUG"/>
+        <property name="log.level.info" value="INFO"/>
+        <property name="log.level.error" value="ERROR"/>
+    </properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${log.fmt.pattern}"/>
+        </Console>
+
+        <File name="RollingFile" fileName="${log.base}-trace.log" append="false">
+            <PatternLayout pattern="${log.fmt.pattern}"/>
+        </File>
+
+        <RollingFile name="TraceRollingFile" fileName="${log.base}.log" filePattern="${log.base}.%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="${log.level.info}" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${log.fmt.pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="ErrorRollingFile" fileName="${log.base}-error.log" filePattern="${log.base}-error.%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${log.fmt.pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <logger name="org.springframework.web" level="${log.level.error}"/>
+        <logger name="org.apache.catalina.core.ContainerBase" level="${log.level.error}"/>
+        <logger name="org.apache.http" level="${log.level.info}"/>
+        <logger name="org.springframework" level="${log.level.info}"/>
+        <logger name="com.netflix" level="${log.level.error}"/>
+        <logger name="com.zaxxer" level="${log.level.info}"/>
+        <logger name="org.springframework.boot" level="${log.level.error}"/>
+        <logger name="org.springframework.aop" level="${log.level.error}"/>
+        <logger name="org.springframework.jmx" level="${log.level.error}"/>
+        <logger name="org.hibernate.validator" level="${log.level.info}"/>
+
+        <root level="${log.level.info}">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+            <appender-ref ref="TraceRollingFile"/>
+            <appender-ref ref="ErrorRollingFile"/>
+        </root>
+    </loggers>
+</Configuration>
